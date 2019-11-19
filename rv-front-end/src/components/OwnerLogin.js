@@ -2,36 +2,39 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import { owners } from '../dummyData';
 
-const Login = (props) => {
-  const [loggedUser, setLoggedUser] = useState({
+const OwnerLogin = (props) => {
+  const [loggedOwner, setLoggedOwner] = useState({
     email: '',
     password: ''
   });
 
+  const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
+
   const handleChanges = e => {
     console.log('changing', e.target.value)
-    setLoggedUser({
-      ...loggedUser,
+    setLoggedOwner({
+      ...loggedOwner,
       [e.target.name] : e.target.value
     })
   }
 
   const handleSubmit = e => {
     e.preventDefault();
-    // localStorage.setItem('token', dummyToken);
-    console.log('props.history', props.history);
-    props.history.push('/');
+
+    const currentOwner = owners.find(curr => curr.email === loggedOwner.email && curr.password === loggedOwner.password);
+    console.log('currentOwner', currentOwner);
+
+    localStorage.setItem('ownerToken', currentOwner.ownerToken);
+    props.history.push(`/owners/${currentOwner.id}`);
   }
 
-  console.log('loggedUser', loggedUser)
-
-  const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
+  console.log('owner properties PROPS' props)
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
-        <Input type="email" name='email' placeholder='Email' value={loggedUser.email} onChange={handleChanges} />
-        <Input type="password" name='password' placeholder='Password' value={loggedUser.password} onChange={handleChanges} />
+        <Input type="email" name='email' placeholder='Email' value={loggedOwner.email} onChange={handleChanges} />
+        <Input type="password" name='password' placeholder='Password' value={loggedOwner.password} onChange={handleChanges} />
         <Button>Log in</Button>
       </Form>
       
@@ -39,7 +42,7 @@ const Login = (props) => {
   )
 }
 
-export default Login
+export default OwnerLogin
 
 
 // STYLED COMPONENTS
