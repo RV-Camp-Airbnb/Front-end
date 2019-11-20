@@ -1,18 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
-import { properties } from '../dummyData';
-// import axios from 'axios';
+import { PropertiesContext } from '../contexts/PropertiesContext'
 
 const OwnerProperties = (props) => {
-  const [ownerProperties, setOwnerProperties] = useState(properties)
+  const [properties, setProperties] = useContext(PropertiesContext)
 
-  console.log('owner properties PROPS' props)
-
-  // const getOwnerProperties = properties.filter(curr => curr.owner_id === loggedOwner.email && curr.password === loggedOwner.password);
+  const currentOwnersProperties = properties.filter(curr => {
+    return curr.owner_id === Number(props.match.params.id)
+  });
   
+  console.log('currentOwnersProperties', currentOwnersProperties);
 
   return (
     <div>
+      <h1>Owner's Properties</h1>
       <Table>
         <thead>
           <tr>
@@ -27,7 +28,7 @@ const OwnerProperties = (props) => {
         </thead>
 
         <tbody>
-          {properties.map(property => (
+          {currentOwnersProperties.map(property => (
             <tr>
             <td><Image src={property.img_url} /></td>
             <td>{property.name}</td>

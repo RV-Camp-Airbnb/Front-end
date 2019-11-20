@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import { axiosWithAuth } from '../axiosWithAuth';
+// import axios from 'axios';
+// import { axiosWithAuth } from '../axiosWithAuth';
 
 const UserRegistration = (props) => {
   const [newUser, setNewUser] = useState({

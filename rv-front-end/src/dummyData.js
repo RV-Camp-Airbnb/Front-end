@@ -1,9 +1,9 @@
 
-export const users = [
+export const usersData = [
 
 ];
 
-export const owners = [
+export const ownersData = [
   {
     id: 1,
     email: 'owner1@gmail.com',
@@ -31,7 +31,7 @@ export const owners = [
 
 ];
 
-export const properties = [
+export const propertiesData = [
   {
     id: 0,
     owner_id: 1,

@@ -5,19 +5,22 @@ import Login from './Login';
 import Catalog from './Catalog';
 import styled from 'styled-components'
 
+
 const Navbar = () => {
+  
+
   return (
     <>
     <NavContainer>
       <Logo exact="true" to="/">RV Camp</Logo>
       <Wrapper>
-          <StyledLink to="/owners">Owners</StyledLink>
+          <StyledLink to="/owners">Owner</StyledLink>
           <StyledLink to="/signup">Sign up</StyledLink>
           <StyledLink to="/login">Log in</StyledLink>
       </Wrapper>
     </NavContainer>
 
-    <Route exact="true" path='/' component={Catalog} />
+    <Route exact path='/' component={Catalog} />
     {/* <Route path='/signup' component={UserRegistration} /> */}
     <Route path="/signup" render={props => (<UserRegistration {...props} />)}/>
     <Route path='/login' component={Login} />

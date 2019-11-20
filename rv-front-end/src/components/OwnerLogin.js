@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import { owners } from '../dummyData';
+import { ownersData } from '../dummyData';
 
 const OwnerLogin = (props) => {
   const [loggedOwner, setLoggedOwner] = useState({
@@ -8,10 +8,7 @@ const OwnerLogin = (props) => {
     password: ''
   });
 
-  const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
-
   const handleChanges = e => {
-    console.log('changing', e.target.value)
     setLoggedOwner({
       ...loggedOwner,
       [e.target.name] : e.target.value
@@ -21,14 +18,17 @@ const OwnerLogin = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const currentOwner = owners.find(curr => curr.email === loggedOwner.email && curr.password === loggedOwner.password);
-    console.log('currentOwner', currentOwner);
-
+    const currentOwner = ownersData.find(curr => curr.email === loggedOwner.email && curr.password === loggedOwner.password);
     localStorage.setItem('ownerToken', currentOwner.ownerToken);
+    localStorage.setItem('id', currentOwner.id);
+
+    console.log('localStorage: token', localStorage.getItem('ownerToken'))
+    console.log('localStorage: id', localStorage.getItem('id'))
+
     props.history.push(`/owners/${currentOwner.id}`);
   }
 
-  console.log('owner properties PROPS' props)
+
 
   return (
     <Wrapper>

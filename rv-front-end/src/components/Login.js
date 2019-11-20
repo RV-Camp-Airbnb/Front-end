@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
-import { owners } from '../dummyData';
+// import { owners } from '../dummyData';
 
 const Login = (props) => {
   const [loggedUser, setLoggedUser] = useState({
@@ -25,7 +25,7 @@ const Login = (props) => {
 
   console.log('loggedUser', loggedUser)
 
-  const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
+  // const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
 
   return (
     <Wrapper>
