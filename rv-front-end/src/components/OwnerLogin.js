@@ -20,6 +20,7 @@ const OwnerLogin = (props) => {
     });
   }
 
+
   const handleSubmit = e => {
     e.preventDefault();
     axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/login", loggedOwner )
@@ -29,13 +30,6 @@ const OwnerLogin = (props) => {
       localStorage.setItem("ownerToken", res.data.token );
       console.log(localStorage.getItem("ownerToken"))
     })
-    
-    // setTimeout(
-    //   props.history.push(`/owners/${1}`), /* ID hardcoded as a placeholder */
-    // 1000)
-    // isLoggedIn ? 
-    // (props.history.push(`/owners/${localStorage.getItem("ownerId")}`)) :
-    // (console.log('user not valid'))
   }
 
   useEffect(() => {
@@ -44,6 +38,8 @@ const OwnerLogin = (props) => {
       props.history.push(`/owners/${auth[0].id}`)
     }
   }, [auth])
+
+
 
   return (
     <Wrapper>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import { AuthContext } from '../contexts/AuthContext'
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const OwnerProperties = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
@@ -14,6 +15,15 @@ const OwnerProperties = (props) => {
   });
   
   console.log('currentOwnersProperties', currentOwnersProperties);
+
+  const handleDelete = e => {
+    axios.delete("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/999", )
+    .then(res => {
+      // setProperties(res.data)
+    })
+    console.log('property deleted!');
+    
+  }
 
   return (
     <div>
@@ -42,8 +52,8 @@ const OwnerProperties = (props) => {
             <td>{property.address}</td>
             <td>{`$ ${property.price}`}</td>
             <td><button>View</button></td>
-            <td><button>Edit</button></td>
-            <td><button>Delete</button></td>
+            <Link to={`/owners/${localStorage.getItem('ownerId')}/${property.id}`}><td><button>Edit</button></td></Link>
+            <td><button onClick={handleDelete}>Delete</button></td>
           </tr>
           ))}
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import styled from 'styled-components';
+import axios from 'axios'
 
 const AddProperty = () => {
   const [properties, setProperties] = useContext(PropertiesContext);
@@ -29,10 +30,12 @@ const AddProperty = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/register", newProperty )
-    // .then(res => {
-    // })
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/register", newProperty )
+    .then(res => {
+    })
     setNewProperty(prevProperties => [...prevProperties, {[e.target.name] : e.target.value}])
+    console.log('property created!');
+    
   }
 
   useEffect(() => {
@@ -41,12 +44,14 @@ const AddProperty = () => {
       // props.history.push(`/owners/${localStorage.getItem("ownerId")}`)
     }
   }, [newProperty])
-  
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
+        <Input type="text" name='id' placeholder='id' value={newProperty.id} onChange={handleChanges} />  
+        <Input type="text" name='owner_id' value={localStorage.getItem('ownerId')} onChange={handleChanges} />
         <Input type="text" name='name' placeholder='name' value={newProperty.name} onChange={handleChanges} />
+        <Input type="text" name='password' value={localStorage.getItem('ownerToken')} onChange={handleChanges} />
         <Input type="text" name='description' placeholder='description' value={newProperty.description} onChange={handleChanges} />
         <Input type="number" name='site' placeholder='site' value={newProperty.site} onChange={handleChanges} />
         <Input type="text" name='state' placeholder='state' value={newProperty.state} onChange={handleChanges} />

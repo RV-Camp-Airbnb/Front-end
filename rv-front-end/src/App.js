@@ -12,6 +12,7 @@ import DummyBackend from './components/DummyBackend'
 import OwnerRegistration from './components/OwnerRegistration';
 import { AuthProvider} from './contexts/AuthContext';
 import AddProperty from './components/AddProperty';
+import UpdateProperty from './components/UpdateProperty';
 
 
 function App() {
@@ -38,9 +39,10 @@ function App() {
       <Route exact path='/owners/login' component={OwnerLogin} />
       <Route exact path='/owners/signup' component={OwnerRegistration} />
       <Route exact path='/owners' component={Owners} />
-      <Route exact path='/owners/:id/new' component={AddProperty} />
+      <Route exact path='/owners/:owner_id/new' component={AddProperty} />
+      <Route exact path='/owners/:owner_id/:property_id' component={UpdateProperty} />
       {/* <OwnerPrivateRoute> */}
-        <Route exact path='/owners/:id' render={props => (<OwnerProperties {...props} />)}/>
+        <Route exact path='/owners/:owner_id' render={props => (<OwnerProperties {...props} />)}/>
         {/* <Route exact path='/owners/' render={props => (<OwnerProperties {...props} />)}/> */}
         
       {/* </OwnerPrivateRoute> */}
