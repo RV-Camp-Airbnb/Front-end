@@ -1,7 +1,6 @@
 import React, {useState,useEffect } from 'react';
 import CatalogCard from './CatalogCard';
-import {BrowserRouter as Router,Link,Route} from 'react-router-dom';
-
+import axios from 'axios';
 
 
 export const dummyData = [
@@ -92,7 +91,7 @@ export const dummyData = [
   }
 
 ];
-console.log(dummyData)
+// console.log(dummyData)
 
 
 
@@ -100,6 +99,13 @@ const Catalog = () => {
 
 const [listings, setListings] = useState(dummyData)
 const [searchTerm, setSearchTerm] = useState('')
+
+
+// useEffect(()=>{
+//   axios.get('https://deplyrvpark.herokuapp.com/api/landOwner')
+//   .then(res =>{console.log(res)})
+//   .catch(err=>{console.log(err.response)})
+// },[])
 
 const handleChange = e => {
   setSearchTerm(e.target.value)
@@ -120,7 +126,7 @@ const handleSearch = (input) =>{
         e.preventDefault()
       handleSearch(searchTerm)
       }}>
-              <input type='text' placeholder = 'Search by State' onChange = {handleChange}></input>
+              <input type='text' placeholder = 'Search by State' onChange = {handleChange} required minLength ='1'></input>
             <button type='submit' onSubmit = {handleSearch} >Submit.</button>
               </form>
 
