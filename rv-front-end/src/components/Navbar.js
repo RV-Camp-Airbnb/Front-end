@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Link} from "react-router-dom";
 import UserRegistration from './UserRegistration';
-import Login from './Login';
+import UserLogin from './UserLogin';
 import Catalog from './Catalog';
 import styled from 'styled-components'
 
@@ -23,7 +23,7 @@ const Navbar = () => {
     <Route exact path='/' component={Catalog} />
     {/* <Route path='/signup' component={UserRegistration} /> */}
     <Route path="/signup" render={props => (<UserRegistration {...props} />)}/>
-    <Route path='/login' component={Login} />
+    <Route path='/login' component={UserLogin} />
     
     </>
   )

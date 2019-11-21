@@ -1,12 +1,16 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import { PropertiesContext } from '../contexts/PropertiesContext'
+import { PropertiesContext } from '../contexts/PropertiesContext';
+import { AuthContext } from '../contexts/AuthContext'
+import { Link } from "react-router-dom";
 
 const OwnerProperties = (props) => {
-  const [properties, setProperties] = useContext(PropertiesContext)
+  const [properties, setProperties] = useContext(PropertiesContext);
+  const [auth] = useContext(AuthContext);
 
   const currentOwnersProperties = properties.filter(curr => {
-    return curr.owner_id === Number(props.match.params.id)
+    // return curr.owner_id === Number(props.match.params.id);
+    return curr.owner_id === localStorage.getItem('ownerId');
   });
   
   console.log('currentOwnersProperties', currentOwnersProperties);
@@ -14,6 +18,7 @@ const OwnerProperties = (props) => {
   return (
     <div>
       <h1>Owner's Properties</h1>
+      <Link to={`${localStorage.getItem('ownerId')}/new`}>Add property</Link>
       <Table>
         <thead>
           <tr>
@@ -23,7 +28,7 @@ const OwnerProperties = (props) => {
             <th>State</th>
             <th>Address</th>
             <th>Price</th>
-            <th colspan="3"></th>
+            <th colSpan="3"></th>
           </tr>
         </thead>
 

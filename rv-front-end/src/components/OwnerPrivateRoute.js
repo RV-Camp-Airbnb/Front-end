@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Route, Redirect } from "react-router-dom";
 import OwnerProperties from "./OwnerProperties";
 
 export default function OwnerPrivateRoute({ children, ...rest }) {
 
   const isAuthenticated = (props) => {
-    console.log('Private: Get Id', localStorage.getItem("id"))
-    console.log("props", props);
+    console.log('Private: Get', localStorage.getItem("ownerId"))
+    console.log("private props", props);
     return localStorage.getItem("ownerToken") ? true : false;
   };
 
@@ -17,21 +17,10 @@ export default function OwnerPrivateRoute({ children, ...rest }) {
       {...rest}
       render={({ location }) =>
         isAuthenticated() ? (
-          children
-        ) : console.log('not logged in')
+          (<Redirect to={{ pathname: `/owners/${localStorage.getItem("ownerId")}`, state: { from: location }}}/>)
+        ) : (<Redirect to={{ pathname: "/owners/signup", state: { from: location }}}/>)
       }
     />
   );
 }
 
-// export default function OwnerPrivateRoute({ children, ...rest }) {
-//   console.log("...rest", rest);
-//   return (
-//     <Route
-//       {...rest}
-//       render={({ location }) =>
-//         isAuthenticated() ? (children) : (<Redirect to={{ pathname: "/", state: { from: location }}}/>)
-//       }
-//     />
-//   );
-// }

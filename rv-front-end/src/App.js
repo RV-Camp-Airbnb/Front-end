@@ -7,6 +7,12 @@ import Navbar from './components/Navbar';
 import OwnerProperties from './components/OwnerProperties';
 import OwnerLogin from './components/OwnerLogin';
 import OwnerPrivateRoute from './components/OwnerPrivateRoute';
+import Owners from './components/Owners';
+import DummyBackend from './components/DummyBackend'
+import OwnerRegistration from './components/OwnerRegistration';
+import { AuthProvider} from './contexts/AuthContext';
+import AddProperty from './components/AddProperty';
+
 
 function App() {
   // useEffect(() => {
@@ -24,16 +30,24 @@ function App() {
 
 
   return (
+    <AuthProvider>
     <div className="App">
       <Navbar />
 
-      <Route exact path='/owners/' component={OwnerLogin} />
-      <OwnerPrivateRoute>
+      <Route exact path='/backend' component={DummyBackend} />
+      <Route exact path='/owners/login' component={OwnerLogin} />
+      <Route exact path='/owners/signup' component={OwnerRegistration} />
+      <Route exact path='/owners' component={Owners} />
+      <Route exact path='/owners/:id/new' component={AddProperty} />
+      {/* <OwnerPrivateRoute> */}
         <Route exact path='/owners/:id' render={props => (<OwnerProperties {...props} />)}/>
-      </OwnerPrivateRoute>
+        {/* <Route exact path='/owners/' render={props => (<OwnerProperties {...props} />)}/> */}
+        
+      {/* </OwnerPrivateRoute> */}
       {/* <Route exact path='/owners/' render={props => (<OwnerLogin {...props} />)}/> */}
       
     </div>
+    </AuthProvider>
   );
 }
 

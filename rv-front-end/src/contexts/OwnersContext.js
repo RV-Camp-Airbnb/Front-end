@@ -4,13 +4,13 @@ import { owners } from '../dummyData';
 export const OwnersContext = createContext();
 
 export const OwnersProvider = () => {
-  const [loggedOwner, setLoggedOwner] = useState({
-    email: '',
+  const [activeOwner, setActiveOwner] = useState({
+    id: '',
     password: ''
   });
 
   return (
-    <OwnersContext.Provider value={[ownerProperties, setOwnerProperties]}>
+    <OwnersContext.Provider value={[activeOwner, setActiveOwner]}>
       {props.children}
     </OwnersContext.Provider>
   )

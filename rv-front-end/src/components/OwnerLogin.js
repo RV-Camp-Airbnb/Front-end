@@ -1,10 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import styled from 'styled-components'
-import { ownersData } from '../dummyData';
+import axios from 'axios';
+import { Link } from "react-router-dom";
+import { AuthContext } from '../contexts/AuthContext'
 
 const OwnerLogin = (props) => {
+  const [auth, setAuth] = useContext(AuthContext);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
   const [loggedOwner, setLoggedOwner] = useState({
-    email: '',
+    username: '',
     password: ''
   });
 
@@ -12,30 +17,41 @@ const OwnerLogin = (props) => {
     setLoggedOwner({
       ...loggedOwner,
       [e.target.name] : e.target.value
-    })
+    });
   }
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    const currentOwner = ownersData.find(curr => curr.email === loggedOwner.email && curr.password === loggedOwner.password);
-    localStorage.setItem('ownerToken', currentOwner.ownerToken);
-    localStorage.setItem('id', currentOwner.id);
-
-    console.log('localStorage: token', localStorage.getItem('ownerToken'))
-    console.log('localStorage: id', localStorage.getItem('id'))
-
-    props.history.push(`/owners/${currentOwner.id}`);
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/login", loggedOwner )
+    .then(res => {
+      setLoggedIn(true);
+      setAuth([{id: 1, token: res.data.token}] ) /* ID hardcoded as a placeholder */
+      localStorage.setItem("ownerToken", res.data.token );
+      console.log(localStorage.getItem("ownerToken"))
+    })
+    
+    // setTimeout(
+    //   props.history.push(`/owners/${1}`), /* ID hardcoded as a placeholder */
+    // 1000)
+    // isLoggedIn ? 
+    // (props.history.push(`/owners/${localStorage.getItem("ownerId")}`)) :
+    // (console.log('user not valid'))
   }
 
-
+  useEffect(() => {
+    if (auth.length > 0) {
+      console.log('auth.length', auth.length)
+      props.history.push(`/owners/${auth[0].id}`)
+    }
+  }, [auth])
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
-        <Input type="email" name='email' placeholder='Email' value={loggedOwner.email} onChange={handleChanges} />
+        <Input type="text" name='username' placeholder='Username' value={loggedOwner.username} onChange={handleChanges} />
         <Input type="password" name='password' placeholder='Password' value={loggedOwner.password} onChange={handleChanges} />
         <Button>Log in</Button>
+        <Link to="signup">Don't have an account?</Link>
       </Form>
       
     </Wrapper>

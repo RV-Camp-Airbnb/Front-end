@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 // import { owners } from '../dummyData';
 
-const Login = (props) => {
+const UserLogin = (props) => {
   const [loggedUser, setLoggedUser] = useState({
     email: '',
     password: ''
@@ -39,7 +39,7 @@ const Login = (props) => {
   )
 }
 
-export default Login
+export default UserLogin
 
 
 // STYLED COMPONENTS
