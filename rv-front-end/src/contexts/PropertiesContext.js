@@ -6,7 +6,7 @@ export const PropertiesContext = createContext();
 
 export const PropertiesProvider = (props) => {
   // const [properties, setProperties] = useState(propertiesData)
-  const [properties, setProperties] = useState([{}])
+  const [properties, setProperties] = useState([])
 
   useEffect(()=>{
     axios.get('https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner')

@@ -9,26 +9,33 @@ const OwnerProperties = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
   const [auth] = useContext(AuthContext);
 
+
+
+  // if (!properties.length || !item) {
+  //   return <h2>Loading item data...</h2>;
+  // }
+
+
   const currentOwnersProperties = properties.filter(curr => {
     // return curr.owner_id === Number(props.match.params.id);
     return curr.owner_id === localStorage.getItem('ownerId');
   });
   
-  console.log('currentOwnersProperties', currentOwnersProperties);
+  // console.log('currentOwnersProperties', currentOwnersProperties);
 
   const handleDelete = e => {
-    axios.delete("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/999", )
+    axios.delete(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${e.target.value}`, )
     .then(res => {
-      // setProperties(res.data)
+      setProperties(res.data)
     })
-    console.log('property deleted!');
+    console.log('property deleted!', e.target.value);
     
   }
 
   return (
     <div>
       <h1>Owner's Properties</h1>
-      <Link to={`${localStorage.getItem('ownerId')}/new`}>Add property</Link>
+      <Link to={`/owners/${localStorage.getItem('ownerId')}/new`}>Add property</Link>
       <Table>
         <thead>
           <tr>
@@ -53,7 +60,7 @@ const OwnerProperties = (props) => {
             <td>{`$ ${property.price}`}</td>
             <td><button>View</button></td>
             <Link to={`/owners/${localStorage.getItem('ownerId')}/${property.id}`}><td><button>Edit</button></td></Link>
-            <td><button onClick={handleDelete}>Delete</button></td>
+            <td><button value={property.id} onClick={handleDelete}>Delete</button></td>
           </tr>
           ))}
 

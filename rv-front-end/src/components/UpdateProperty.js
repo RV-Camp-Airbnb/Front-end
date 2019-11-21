@@ -31,7 +31,7 @@ const UpdateProperty = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.put("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/2", currentProperty )
+    axios.put(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${props.match.params.property_id}`, currentProperty )
     .then(res => {
       setCurrentProperty(res.data)
     })
