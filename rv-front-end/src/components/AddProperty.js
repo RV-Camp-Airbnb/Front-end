@@ -3,10 +3,11 @@ import { PropertiesContext } from '../contexts/PropertiesContext';
 import styled from 'styled-components';
 import axios from 'axios'
 
-const AddProperty = () => {
+const AddProperty = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
+  const [submitted, setSubmitted] = useState(false)
   const [newProperty, setNewProperty] = useState({
-    id: '',
+    // id: '',
     owner_id: localStorage.getItem('ownerId'),
     name: '',
     password: localStorage.getItem('ownerToken'),
@@ -20,6 +21,7 @@ const AddProperty = () => {
     price: '',
     img_url: ''
   });
+  
 
   const handleChanges = e => {
     setNewProperty({
@@ -32,26 +34,31 @@ const AddProperty = () => {
     e.preventDefault();
     axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/register", newProperty )
     .then(res => {
+      setNewProperty(res.data)
+      setSubmitted(true)
     })
-    setNewProperty(prevProperties => [...prevProperties, {[e.target.name] : e.target.value}])
+
     console.log('property created!');
     
   }
 
   useEffect(() => {
-    if (newProperty) {
-      console.log('newProperty', newProperty);
-      // props.history.push(`/owners/${localStorage.getItem("ownerId")}`)
+    if (submitted === true ) {
+      console.log('submitted', submitted);
+      props.history.push(`/owners/${localStorage.getItem("ownerId")}`)
     }
-  }, [newProperty])
+  }, [submitted])
+
+
+  console.log('newProperty', newProperty.name)
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
-        <Input type="text" name='id' placeholder='id' value={newProperty.id} onChange={handleChanges} />  
-        <Input type="text" name='owner_id' value={localStorage.getItem('ownerId')} onChange={handleChanges} />
+        {/* <Input type="text" name='id' placeholder='id' value={newProperty.id} onChange={handleChanges} />   */}
+        <Input type="hidden" name='owner_id' value={localStorage.getItem('ownerId')} onChange={handleChanges} />
         <Input type="text" name='name' placeholder='name' value={newProperty.name} onChange={handleChanges} />
-        <Input type="text" name='password' value={localStorage.getItem('ownerToken')} onChange={handleChanges} />
+        <Input type="hidden" name='password' value={localStorage.getItem('ownerToken')} onChange={handleChanges} />
         <Input type="text" name='description' placeholder='description' value={newProperty.description} onChange={handleChanges} />
         <Input type="number" name='site' placeholder='site' value={newProperty.site} onChange={handleChanges} />
         <Input type="text" name='state' placeholder='state' value={newProperty.state} onChange={handleChanges} />

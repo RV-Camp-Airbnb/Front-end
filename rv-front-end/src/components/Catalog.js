@@ -5,17 +5,7 @@ import styled from 'styled-components';
 
 const Catalog = () => {
   // const [lands, setLands] = useState([]);
-  const [lands, setLands] = useContext(PropertiesContext);
-
-  useEffect(()=>{
-    axios.get('https://cors-anywhere.herokuapp.com/https://lambda-rvapi.herokuapp.com/properties')
-    .then(res => {
-      setLands(res.data)
-      console.log('res.data', res.data)
-      console.log('lands api', lands)
-    })
-    .catch(err => { console.log('error')})
-  },[])
+  const [properties, setProperties] = useContext(PropertiesContext);
 
 
   return (
@@ -34,7 +24,7 @@ const Catalog = () => {
         </thead>
 
         <tbody>
-          {lands.map(property => (
+          {properties.map(property => (
             <tr>
             <td><Image src={property.img_url} /></td>
             <td>{property.name}</td>

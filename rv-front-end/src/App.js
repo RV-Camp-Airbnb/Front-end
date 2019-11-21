@@ -35,7 +35,6 @@ function App() {
     <div className="App">
       <Navbar />
 
-      <Route exact path='/backend' component={DummyBackend} />
       <Route exact path='/owners/login' component={OwnerLogin} />
       <Route exact path='/owners/signup' component={OwnerRegistration} />
       <Route exact path='/owners' component={Owners} />

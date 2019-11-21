@@ -20,22 +20,9 @@ const OwnerRegistration = (props) => {
     });
   }
 
-// Start Chaz's backend
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/register", loggedOwner )
-  //   .then(res => {
-  //     setLoggedIn(true);
-  //     setAuth([{id: res.data[0].id, token: res.data[0].password}] ) 
-  //     localStorage.setItem("ownerToken", res.data[0].password );
-  //     localStorage.setItem("ownerId", res.data[0].id );      
-  //   })
-  // }
-// End Chaz's backend  
-
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("https://cors-anywhere.herokuapp.com/https://lambda-rvapi.herokuapp.com/owners/", loggedOwner )
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/register", loggedOwner )
     .then(res => {
       setLoggedIn(true);
       setAuth([{id: res.data[0].id, token: res.data[0].password}] ) 

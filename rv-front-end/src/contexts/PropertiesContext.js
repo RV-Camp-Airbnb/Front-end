@@ -14,9 +14,7 @@ export const PropertiesProvider = (props) => {
       setProperties(res.data)
     })
     .catch(err => { console.log('error')})
-  },[])
-
-  
+  },[properties])
 
   return (
     <PropertiesContext.Provider value={[properties, setProperties]}>

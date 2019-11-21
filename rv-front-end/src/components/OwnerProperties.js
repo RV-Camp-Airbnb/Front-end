@@ -2,8 +2,9 @@ import React, {useContext} from 'react';
 import styled from 'styled-components';
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import { AuthContext } from '../contexts/AuthContext'
-import { Link } from "react-router-dom";
-import axios from 'axios'
+import { Route , Link } from "react-router-dom";
+import axios from 'axios';
+import UpdateProperty from './UpdateProperty'; 
 
 const OwnerProperties = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
@@ -35,7 +36,7 @@ const OwnerProperties = (props) => {
   return (
     <div>
       <h1>Owner's Properties</h1>
-      <Link to={`/owners/${localStorage.getItem('ownerId')}/new`}>Add property</Link>
+      <Link exact to={`/owners/${localStorage.getItem('ownerId')}/new`}>Add property</Link>
       <Table>
         <thead>
           <tr>
@@ -58,8 +59,8 @@ const OwnerProperties = (props) => {
             <td>{property.state}</td>
             <td>{property.address}</td>
             <td>{`$ ${property.price}`}</td>
-            <td><button>View</button></td>
-            <Link to={`/owners/${localStorage.getItem('ownerId')}/${property.id}`}><td><button>Edit</button></td></Link>
+            <td><Link exact to={`${localStorage.getItem('ownerId')}/${property.id}`}><button>Edit</button></Link></td>
+            {/* <td><button onClick={() => props.history.push(`/owners/${localStorage.getItem('ownerId')}/${property.id}`)}>Edit</button></td> */}
             <td><button value={property.id} onClick={handleDelete}>Delete</button></td>
           </tr>
           ))}
@@ -67,6 +68,7 @@ const OwnerProperties = (props) => {
           
         </tbody>
       </Table>
+      <Route exact path=':property_id' component={UpdateProperty} />
       
     </div>
   )
