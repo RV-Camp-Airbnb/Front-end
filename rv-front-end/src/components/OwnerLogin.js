@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
 import styled from 'styled-components'
 import axios from 'axios';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from '../contexts/AuthContext'
 
-const OwnerRegistration = (props) => {
+const OwnerLogin = (props) => {
   const [auth, setAuth] = useContext(AuthContext);
   const [isLoggedIn, setLoggedIn] = useState(false);
 
@@ -20,43 +20,41 @@ const OwnerRegistration = (props) => {
     });
   }
 
+
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/register", loggedOwner )
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/login", loggedOwner )
     .then(res => {
       setLoggedIn(true);
-      setAuth([{id: res.data[0].id, token: res.data[0].password}] ) 
-      localStorage.setItem("ownerToken", res.data[0].password );
-      localStorage.setItem("ownerId", res.data[0].id );      
+      setAuth([{id: 1, token: res.data.token}] ) /* ID hardcoded as a placeholder */
+      localStorage.setItem("ownerToken", res.data.token );
+      console.log(localStorage.getItem("ownerToken"))
     })
   }
 
   useEffect(() => {
     if (auth.length > 0) {
-      console.log('auth.length', auth.length);
-      props.history.push(`/owners/${localStorage.getItem("ownerId")}`)
+      console.log('auth.length', auth.length)
+      props.history.push(`/owners/${auth[0].id}`)
     }
   }, [auth])
 
-    // isLoggedIn ? 
-    // (props.history.push(`/owners/${localStorage.getItem("ownerId")}`)) :
-    // (console.log('user not valid'))
-  
+
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
         <Input type="text" name='username' placeholder='Username' value={loggedOwner.username} onChange={handleChanges} />
         <Input type="password" name='password' placeholder='Password' value={loggedOwner.password} onChange={handleChanges} />
-        <Button>Join RV Camp</Button>
-        <Link to="login">Already have an account?</Link>
+        <Button>Log in</Button>
+        <Link to="signup">Don't have an account?</Link>
       </Form>
       
     </Wrapper>
   )
 }
 
-export default OwnerRegistration
+export default OwnerLogin
 
 
 // STYLED COMPONENTS
