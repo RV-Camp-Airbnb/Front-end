@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import styled from 'styled-components';
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import { AuthContext } from '../contexts/AuthContext'
@@ -9,29 +9,31 @@ import UpdateProperty from './UpdateProperty';
 const OwnerProperties = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
   const [auth] = useContext(AuthContext);
-
-
-
-  // if (!properties.length || !item) {
-  //   return <h2>Loading item data...</h2>;
-  // }
-
+  const [submitted, setSubmitted] = useState(false)
+  const [ownerProperties, setOwner, Properties] = useState()
 
   const currentOwnersProperties = properties.filter(curr => {
     // return curr.owner_id === Number(props.match.params.id);
     return curr.owner_id === localStorage.getItem('ownerId');
   });
   
-  // console.log('currentOwnersProperties', currentOwnersProperties);
+  console.log('currentOwnersProperties', currentOwnersProperties);
 
   const handleDelete = e => {
-    axios.delete(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${e.target.value}`, )
+    axios.delete(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${e.target.value}` )
     .then(res => {
-      setProperties(res.data)
+      setProperties(res.data);
+      setSubmitted(true);
     })
     console.log('property deleted!', e.target.value);
-    
   }
+
+  useEffect(() => {
+    if (submitted === true ) {
+      console.log('submitted', submitted);
+      // props.history.push(`/owners/${localStorage.getItem("ownerId")}`)
+    }
+  }, [submitted])
 
   return (
     <div>
