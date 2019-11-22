@@ -76,6 +76,8 @@ const OwnerProperties = (props) => {
   )
 }
 
+
+
 export default OwnerProperties
 
 
