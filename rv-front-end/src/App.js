@@ -16,19 +16,6 @@ import UpdateProperty from './components/UpdateProperty';
 
 
 function App() {
-  // useEffect(() => {
-  //   axios.get('https://cuylite.herokuapp.com/api/products', {
-  //     headers: { 
-  //     "Content-Type": "application/x-www-form-urlencoded"
-  //   }})
-  //       .then(res => {
-  //         console.log('res products', res);
-  //       })
-  //       .catch(err => {
-  //         // console.log('err', err)
-  //       })
-  // }, []);
-
 
   return (
     <AuthProvider>

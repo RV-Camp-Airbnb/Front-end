@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import { AuthContext } from '../contexts/AuthContext'
 import { Route , Link } from "react-router-dom";
-import axios from 'axios';
+// import axios from 'axios';
 import UpdateProperty from './UpdateProperty'; 
+import { axiosWithAuth } from './axiosWithAuth';
 
 const OwnerProperties = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
@@ -18,7 +19,7 @@ const OwnerProperties = (props) => {
   });
 
   const handleDelete = e => {
-    axios.delete(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${e.target.value}` )
+    axiosWithAuth().delete(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${e.target.value}` )
     .then(res => {
       setProperties(res.data);
       setSubmitted(true);

@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
 import styled from 'styled-components'
-import axios from 'axios';
+// import axios from 'axios';
 import { Link } from "react-router-dom";
-import { AuthContext } from '../contexts/AuthContext'
+import { AuthContext } from '../contexts/AuthContext';
+import { axiosWithAuth } from './axiosWithAuth';
 
 const OwnerLogin = (props) => {
   const [auth, setAuth] = useContext(AuthContext);
@@ -22,7 +23,7 @@ const OwnerLogin = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/owner/login", loggedOwner )
+    axiosWithAuth().post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/owner/login", loggedOwner )
     .then(res => {
       setLoggedIn(true);
       setAuth([{id: 1, token: res.data.token}] ) /* ID hardcoded as a placeholder */

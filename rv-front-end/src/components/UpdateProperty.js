@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import styled from 'styled-components';
-import axios from 'axios'
+// import axios from 'axios';
+import { axiosWithAuth } from './axiosWithAuth';
 
 const UpdateProperty = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
@@ -31,7 +32,7 @@ const UpdateProperty = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.put(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${props.match.params.property_id}`, currentProperty )
+    axiosWithAuth().put(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${props.match.params.property_id}`, currentProperty )
     .then(res => {
       setCurrentProperty(res.data)
       setSubmitted(true)
