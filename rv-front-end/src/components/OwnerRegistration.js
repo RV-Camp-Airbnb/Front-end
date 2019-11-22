@@ -22,7 +22,7 @@ const OwnerRegistration = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/register", loggedOwner )
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/owner/register", loggedOwner )
     .then(res => {
       setLoggedIn(true);
       setAuth([{id: res.data[0].id, token: res.data[0].password}] ) 

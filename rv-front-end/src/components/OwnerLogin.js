@@ -20,10 +20,9 @@ const OwnerLogin = (props) => {
     });
   }
 
-
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/login", loggedOwner )
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/owner/login", loggedOwner )
     .then(res => {
       setLoggedIn(true);
       setAuth([{id: 1, token: res.data.token}] ) /* ID hardcoded as a placeholder */
