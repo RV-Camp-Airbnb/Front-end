@@ -8,11 +8,11 @@ const Owners = () => {
   return (
     <div>
       <h1>hello from Owners</h1>
-      {/* <OwnerPrivateRoute> */}
-        {/* <Route exact path='/owners/:owner_id' render={props => (<OwnerProperties {...props} />)}/> */}
-      {/* </OwnerPrivateRoute> */}
-      {/* <Route exact path='/owners/:owner_id' render={props => (<OwnerProperties {...props} />)}/> */}
-      <OwnerProperties/>
+      <OwnerPrivateRoute>
+        {/* <Route exact path='/owners/:id' render={props => (<OwnerProperties {...props} />)}/> */}
+        <Route exact path='/owners/:id' render={props => (<OwnerProperties {...props} />)}/>
+        
+      </OwnerPrivateRoute>
     </div>
     
   )

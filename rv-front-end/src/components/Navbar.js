@@ -18,8 +18,6 @@ const Navbar = () => {
           <StyledLink to="/owners">Owner</StyledLink>
           <StyledLink to="/signup">Sign up</StyledLink>
           <StyledLink to="/login">Log in</StyledLink>
-          {/* <LoginButton /> */}
-          
       </Wrapper>
     </NavContainer>
 
