@@ -16,8 +16,6 @@ const OwnerProperties = (props) => {
     // return curr.owner_id === Number(props.match.params.id);
     return curr.owner_id === localStorage.getItem('ownerId');
   });
-  
-  console.log('currentOwnersProperties', currentOwnersProperties);
 
   const handleDelete = e => {
     axios.delete(`https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/${e.target.value}` )

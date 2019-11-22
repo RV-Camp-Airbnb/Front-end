@@ -9,7 +9,7 @@ const OwnerLogin = (props) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const [loggedOwner, setLoggedOwner] = useState({
-    username: '',
+    ownername: '',
     password: ''
   });
 
@@ -43,7 +43,7 @@ const OwnerLogin = (props) => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
-        <Input type="text" name='username' placeholder='Username' value={loggedOwner.username} onChange={handleChanges} />
+        <Input type="text" name='ownername' placeholder='Owner name' value={loggedOwner.ownername} onChange={handleChanges} />
         <Input type="password" name='password' placeholder='Password' value={loggedOwner.password} onChange={handleChanges} />
         <Button>Log in</Button>
         <Link to="signup">Don't have an account?</Link>
