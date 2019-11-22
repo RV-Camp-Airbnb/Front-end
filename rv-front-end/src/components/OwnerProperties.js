@@ -75,9 +75,7 @@ const OwnerProperties = (props) => {
   )
 }
 
-
-
-export default OwnerProperties
+export default OwnerProperties;
 
 
 // STYLES COMPONENTS

@@ -28,6 +28,7 @@ const OwnerLogin = (props) => {
       setLoggedIn(true);
       setAuth([{id: 1, token: res.data.token}] ) /* ID hardcoded as a placeholder */
       localStorage.setItem("ownerToken", res.data.token );
+      localStorage.setItem("ownerId", res.data.id ); /* missing in the backend */
       console.log(localStorage.getItem("ownerToken"))
     })
   }

@@ -25,12 +25,12 @@ function App() {
       <Route exact path='/owners/login' component={OwnerLogin} />
       <Route exact path='/owners/signup' component={OwnerRegistration} />
       <Route exact path='/owners' component={Owners} />
-      <Route exact path='/owners/:owner_id/new' component={AddProperty} />
-      <Route exact path='/owners/:owner_id/:property_id' component={UpdateProperty} />
+      {/* <Route exact path='/owners/:owner_id/new' component={AddProperty} />
+      <Route exact path='/owners/:owner_id/:property_id' component={UpdateProperty} /> */}
       {/* <OwnerPrivateRoute> */}
-        <Route exact path='/owners/:owner_id' render={props => (<OwnerProperties {...props} />)}/>
+        {/* <Route exact path='/owners/:owner_id' render={props => (<OwnerProperties {...props} />)}/> */}
         {/* <Route exact path='/owners/' render={props => (<OwnerProperties {...props} />)}/> */}
-        
+        {/* <OwnerProperties/> */}
       {/* </OwnerPrivateRoute> */}
       {/* <Route exact path='/owners/' render={props => (<OwnerLogin {...props} />)}/> */}
       
