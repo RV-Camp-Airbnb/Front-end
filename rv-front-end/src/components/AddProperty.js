@@ -1,8 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { PropertiesContext } from '../contexts/PropertiesContext';
 import styled from 'styled-components';
-// import axios from 'axios';
-import { axiosWithAuth } from './axiosWithAuth';
+import axios from 'axios'
 
 const AddProperty = (props) => {
   const [properties, setProperties] = useContext(PropertiesContext);
@@ -33,7 +32,7 @@ const AddProperty = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axiosWithAuth().post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/register", newProperty )
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/landOwner/register", newProperty )
     .then(res => {
       setNewProperty(res.data)
       setSubmitted(true)
@@ -49,6 +48,9 @@ const AddProperty = (props) => {
       props.history.push(`/owners/${localStorage.getItem("ownerId")}`)
     }
   }, [submitted])
+
+
+  console.log('newProperty', newProperty.name)
 
   return (
     <Wrapper>
