@@ -1,60 +1,55 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
-// import axios from 'axios';
-// import { axiosWithAuth } from '../axiosWithAuth';
+import React, {useState, useEffect, useContext} from 'react'
+import styled from 'styled-components'
+import axios from 'axios';
+import { Link, Redirect } from "react-router-dom";
+import { AuthContext } from '../contexts/AuthContext'
 
 const UserRegistration = (props) => {
-  const [newUser, setNewUser] = useState({
-    // firstname: '',
-    // lastname: '',
-    email: '',
-    password: '',
-    // zipcode: ''
-  })
+  const [auth, setAuth] = useContext(AuthContext);
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
-  const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
+  const [loggedUser, setLoggedUser] = useState({
+    username: '',
+    password: ''
+  });
 
   const handleChanges = e => {
-    console.log('changing', e.target.value)
-    setNewUser({
-      ...newUser,
+    setLoggedUser({
+      ...loggedUser,
       [e.target.name] : e.target.value
-    })
+    });
   }
 
   const handleSubmit = e => {
     e.preventDefault();
-    localStorage.setItem('token', dummyToken);
-    console.log('props.history', props.history);
-    props.history.push('/');
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/register", loggedUser )
+    .then(res => {
+      setLoggedIn(true);
+      setAuth([{id: res.data[0].id, token: res.data[0].password}] ) 
+      localStorage.setItem("userToken", res.data[0].password );
+      localStorage.setItem("userId", res.data[0].id );      
+    })
   }
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   axiosWithAuth.get('https://cuylite.herokuapp.com/api/users', newUser)
-  //   .then(res => {
-  //     console.log("axios res", res);
-  //     // setStatus(res.data);
-  //     // props.history.push("/");
-  //   })
-  //   .catch(err => console.log("somethingswrongsignup", err));
+  useEffect(() => {
+    if (auth.length > 0) {
+      console.log('auth.length', auth.length);
+      props.history.push(`/`)
+    }
+  }, [auth])
 
-
-    // localStorage.setItem('token', dummyToken);
-    // console.log('props.history', props.history);
-    // props.history.push('/');
-  // }
-
+    // isLoggedIn ? 
+    // (props.history.push(`/users/${localStorage.getItem("userId")}`)) :
+    // (console.log('user not valid'))
+  
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
-        {/* <Input type="text" name='firstname' placeholder='First name' value={newUser.firstname} onChange={handleChanges} /> */}
-        {/* <Input type="text" name='lastname' placeholder='Last name' value={newUser.lastname} onChange={handleChanges} /> */}
-        <Input type="email" name='email' placeholder='Email' value={newUser.email} onChange={handleChanges} />
-        <Input type="password" name='password' placeholder='Password' value={newUser.password} onChange={handleChanges} />
-        {/* <Input type="text" name='zipcode' placeholder='Zip code' value={newUser.zipcode} onChange={handleChanges} /> */}
+        <Input type="text" name='username' placeholder='User name' value={loggedUser.username} onChange={handleChanges} />
+        <Input type="password" name='password' placeholder='Password' value={loggedUser.password} onChange={handleChanges} />
         <Button>Join RV Camp</Button>
+        <Link to="login">Already have an account?</Link>
       </Form>
       
     </Wrapper>
@@ -62,6 +57,7 @@ const UserRegistration = (props) => {
 }
 
 export default UserRegistration
+
 
 // STYLED COMPONENTS
 

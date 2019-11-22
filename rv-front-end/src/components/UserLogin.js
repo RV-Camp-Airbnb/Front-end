@@ -1,38 +1,54 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import styled from 'styled-components'
-// import { owners } from '../dummyData';
+import axios from 'axios';
+import { Link } from "react-router-dom";
+import { AuthContext } from '../contexts/AuthContext'
 
 const UserLogin = (props) => {
+  const [auth, setAuth] = useContext(AuthContext);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
   const [loggedUser, setLoggedUser] = useState({
-    email: '',
+    username: '',
     password: ''
   });
 
   const handleChanges = e => {
-    console.log('changing', e.target.value)
     setLoggedUser({
       ...loggedUser,
       [e.target.name] : e.target.value
-    })
+    });
   }
 
   const handleSubmit = e => {
     e.preventDefault();
-    // localStorage.setItem('token', dummyToken);
-    console.log('props.history', props.history);
-    props.history.push('/');
+    axios.post("https://cors-anywhere.herokuapp.com/https://deplyrvpark.herokuapp.com/api/auth/login", loggedUser )
+    .then(res => {
+      setLoggedIn(true);
+      setAuth([{id: 1, token: res.data.token}] ) /* ID hardcoded as a placeholder */
+      localStorage.setItem("userToken", res.data.token );
+      console.log(localStorage.getItem("userToken"))
+    })
   }
 
-  console.log('loggedUser', loggedUser)
+  localStorage.clear("userToken")
 
-  // const dummyToken = 'b5cbc9aea7bc3a68f8da9e54f887a030839e4780d6117bc0'
+  useEffect(() => {
+    if (auth.length > 0) {
+      console.log('auth.length', auth.length)
+      props.history.push(`/`)
+    }
+  }, [auth])
+
+
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit} >
-        <Input type="email" name='email' placeholder='Email' value={loggedUser.email} onChange={handleChanges} />
+        <Input type="text" name='username' placeholder='User name' value={loggedUser.username} onChange={handleChanges} />
         <Input type="password" name='password' placeholder='Password' value={loggedUser.password} onChange={handleChanges} />
         <Button>Log in</Button>
+        <Link to="signup">Don't have an account?</Link>
       </Form>
       
     </Wrapper>

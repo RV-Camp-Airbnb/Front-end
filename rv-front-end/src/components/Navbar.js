@@ -3,7 +3,8 @@ import {Route, Link} from "react-router-dom";
 import UserRegistration from './UserRegistration';
 import UserLogin from './UserLogin';
 import Catalog from './Catalog';
-import styled from 'styled-components'
+import styled from 'styled-components';
+// import LoginButton from './LoginButton';
 
 
 const Navbar = () => {
@@ -17,6 +18,8 @@ const Navbar = () => {
           <StyledLink to="/owners">Owner</StyledLink>
           <StyledLink to="/signup">Sign up</StyledLink>
           <StyledLink to="/login">Log in</StyledLink>
+          {/* <LoginButton /> */}
+          
       </Wrapper>
     </NavContainer>
 
@@ -29,7 +32,7 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;
 
 
 // STYLED COMPONENTS
